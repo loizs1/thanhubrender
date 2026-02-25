@@ -656,15 +656,7 @@ export const loadAllSlashCommands = async () => {
         name:"resetleaderboard",
         description:"Reset the staff ticket claim leaderboard (admin only)",
         contexts:[discord.InteractionContextType.Guild],
-        integrationTypes:[discord.ApplicationIntegrationType.GuildInstall],
-        options:[
-            {
-                name:"reason",
-                description:"Reason for resetting the leaderboard",
-                type:acot.String,
-                required:false
-            }
-        ]
+        integrationTypes:[discord.ApplicationIntegrationType.GuildInstall]
     }))
 }
 
@@ -1256,15 +1248,7 @@ export const loadAllTextCommands = async () => {
         prefix,
         dmPermission:false,
         guildPermission:true,
-        allowBots:false,
-        options:[
-            {
-                name:"reason",
-                type:"string",
-                required:false,
-                allowSpaces:true
-            }
-        ]
+        allowBots:false
     }))
 }
 

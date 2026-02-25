@@ -36,11 +36,10 @@ export const registerCommandResponders = async () => {
             return cancel()
         }
 
-
         const mainColor = (generalConfig.data.mainColor ?? "#3498db") as discord.ColorResolvable
 
-        //Get reason from command option
-        const reason = instance.options.getString("reason",false) ?? "No reason provided"
+        //Default reason - no need to type
+        const reason = "Manual reset by admin"
 
         //Show confirmation embed with buttons
         const confirmEmbed = new discord.EmbedBuilder()
@@ -48,7 +47,7 @@ export const registerCommandResponders = async () => {
             .setTitle("⚠️ Confirm Leaderboard Reset")
             .setDescription("Are you sure you want to reset the leaderboard? This will **delete all claim points** for all staff members.")
             .addFields(
-                {name:"Reason", value: reason},
+                {name:"Reset by", value: user.globalName ?? user.username},
                 {name:"Warning", value:"This action cannot be undone!"}
             )
             .setTimestamp()
@@ -66,15 +65,12 @@ export const registerCommandResponders = async () => {
         const row = new discord.ActionRowBuilder<discord.ButtonBuilder>()
             .addComponents(yesButton, noButton)
 
-        //Send confirmation message using framework method
-        await instance.defer(false)
+        //Send confirmation message - use channel.send for both slash and text
         const textChannel = channel as discord.TextChannel
         const confirmMsg = await textChannel.send({
             embeds: [confirmEmbed],
             components: [row]
         })
-
-
 
         //Wait for button interaction
         const filter = (interaction: discord.Interaction) => 
@@ -111,7 +107,6 @@ export const registerCommandResponders = async () => {
                 components: []
             })
 
-
             //Clear all leaderboard entries
             const allEntries = await leaderboardDb.getCategory("claims") ?? []
             let deleteCount = 0
@@ -132,7 +127,6 @@ export const registerCommandResponders = async () => {
                 .setTimestamp()
 
             await textChannel.send({embeds: [successEmbed]})
-
 
         } catch (e) {
             //Timeout - show timeout message
