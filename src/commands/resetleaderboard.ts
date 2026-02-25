@@ -69,7 +69,8 @@ export const registerCommandResponders = async () => {
             .addComponents(yesButton, noButton)
 
         //Send confirmation message using channel.send (cast to TextChannel)
-        const confirmMsg = await (channel as discord.TextChannel).send({
+        const textChannel = channel as discord.TextChannel
+        const confirmMsg = await textChannel.send({
             embeds: [confirmEmbed],
             components: [row]
         })
@@ -81,7 +82,7 @@ export const registerCommandResponders = async () => {
             (interaction.customId === "leaderboard_reset_yes" || interaction.customId === "leaderboard_reset_no")
 
         try {
-            const collected = await (channel as discord.TextChannel).awaitMessageComponent({ filter, time: 30000 })
+            const collected = await textChannel.awaitMessageComponent({ filter, time: 30000 })
 
             if (collected.customId === "leaderboard_reset_no"){
                 const cancelEmbed = new discord.EmbedBuilder()
@@ -128,7 +129,7 @@ export const registerCommandResponders = async () => {
                 )
                 .setTimestamp()
 
-            await (channel as discord.TextChannel).send({embeds: [successEmbed]})
+            await textChannel.send({embeds: [successEmbed]})
 
         } catch (e) {
             //Timeout - show timeout message
