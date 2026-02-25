@@ -44,12 +44,8 @@ export const registerCommandResponders = async () => {
         //Default reason - no need to type
         const reason = "Manual reset by admin"
 
-        //First, reply to the command to acknowledge it
-        await instance.reply({
-            id: new api.ODId("opendiscord:resetleaderboard-init"),
-            ephemeral: false,
-            message: {content: "⏳ Processing reset command..."}
-        })
+        //Defer the reply (ephemeral) so we can send messages with components
+        await instance.defer(true)
 
         //Show confirmation embed with buttons - send to channel
         const confirmEmbed = new discord.EmbedBuilder()
