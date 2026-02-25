@@ -297,17 +297,17 @@ export const loadAllHelpMenuComponents = async () => {
 
     const extra = helpmenu.get("opendiscord:extra")
     if (extra){
-        if (allowedCommands.includes("leaderboard")) extra.add(new api.ODHelpMenuCommandComponent("opendiscord:leaderboard-view",1,{
+        if (allowedCommands.includes("leaderboard")) extra.add(new api.ODHelpMenuCommandComponent("opendiscord:leaderboard",1,{
             textName:prefix+"leaderboard",
             textDescription:lang.getTranslation("commands.leaderboard") ?? "View the staff claim leaderboard",
-            slashName:"/leaderboard view",
-            slashDescription:lang.getTranslation("commands.leaderboardView") ?? "View the leaderboard"
+            slashName:"/leaderboard",
+            slashDescription:lang.getTranslation("commands.leaderboard") ?? "View the staff claim leaderboard"
         }))
-        if (allowedCommands.includes("leaderboard")) extra.add(new api.ODHelpMenuCommandComponent("opendiscord:leaderboard-reset",0,{
-            textName:prefix+"leaderboard reset",
-            textDescription:lang.getTranslation("commands.leaderboardReset") ?? "Reset the leaderboard",
-            slashName:"/leaderboard reset",
-            slashDescription:lang.getTranslation("commands.leaderboardReset") ?? "Reset the leaderboard",
+        if (allowedCommands.includes("resetleaderboard")) extra.add(new api.ODHelpMenuCommandComponent("opendiscord:resetleaderboard",0,{
+            textName:prefix+"resetleaderboard",
+            textDescription:lang.getTranslation("commands.resetleaderboard") ?? "Reset the staff claim leaderboard",
+            slashName:"/resetleaderboard",
+            slashDescription:lang.getTranslation("commands.resetleaderboard") ?? "Reset the staff claim leaderboard",
             textOptions:[{name:"reason",optional:true}],
             slashOptions:[{name:"reason",optional:true}]
         }))
