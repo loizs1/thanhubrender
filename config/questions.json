@@ -1,0 +1,54 @@
+[
+    {
+        "id":"support-question",
+        "name":"What can we help you with?",
+        "type":"paragraph",
+        
+        "required":true,
+        "placeholder":"Describe your issue or question...",
+        "length":{
+            "enabled":true,
+            "min":10,
+            "max":1000
+        }
+    },
+    {
+        "id":"payment-method",
+        "name":"What payment method do you want to use?",
+        "type":"short",
+        
+        "required":true,
+        "placeholder":"PayPal, Stripe, Crypto, etc.",
+        "length":{
+            "enabled":false,
+            "min":0,
+            "max":100
+        }
+    },
+    {
+        "id":"keys-amount",
+        "name":"How many keys do you want to buy?",
+        "type":"short",
+        
+        "required":true,
+        "placeholder":"Enter number of keys...",
+        "length":{
+            "enabled":false,
+            "min":0,
+            "max":10
+        }
+    },
+    {
+        "id":"giveaway-type",
+        "name":"What kind of giveaway do you want to join?",
+        "type":"short",
+        
+        "required":true,
+        "placeholder":"Steam Key, Discord Nitro, etc.",
+        "length":{
+            "enabled":false,
+            "min":0,
+            "max":100
+        }
+    }
+]

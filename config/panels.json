@@ -1,0 +1,39 @@
+[
+    {
+        "id":"main-panel",
+        "name":"Tickets",
+        "description":"Create a support ticket",
+        "options":["support","giveaway","purchase-internasional","purchase-indonesia"],
+        "roles":[],
+        "dropdown":true,
+        "text":"",
+        "embed":{
+            "enabled":true,
+            "title":"🎫 Thanhub Support",
+            "description":"Select a ticket type from the dropdown menu below:\n\n‍♂️ **Support** - Get help from our support team\n🎁 **Giveaway** - Join our giveaways\n🌍 **Purchase Intl** - International purchases\n🇮🇩 **Purchase ID** - Indonesia purchases",
+            "url":"",
+            "customColor":"#3498db",
+            "image":"",
+            "thumbnail":"",
+            "footer":"Thanhub Support",
+            "timestamp":true,
+            "fields":[]
+        },
+        "settings":{
+            "dropdownPlaceholder":"Select a ticket type...",
+            "describeOptionsLayout":"simple",
+            "displayOptionsInline":false,
+            "disableButtonAfterCreation":false,
+            "enableMaxTicketsWarningInText":false,
+            "enableMaxTicketsWarningInEmbed":true,
+            "describeOptionsCustomTitle":"",
+            "describeOptionsInText":false,
+            "describeOptionsInEmbedFields":false,
+            "describeOptionsInEmbedDescription":true,
+            "maxTicketReached":"Sorry, the maximum amount of tickets has been reached!",
+            "cooldownReached":"Please wait before creating another ticket!",
+            "noPermissions":"You don't have the required permissions to create a ticket!",
+            "noRoles":"You don't have the required roles to create this ticket!"
+        }
+    }
+]
