@@ -42,12 +42,7 @@ export const registerCommandResponders = async () => {
         //Default reason - no need to type
         const reason = "Manual reset by admin"
 
-        //For slash commands, defer the reply. For text commands, just send to channel
-        if (source === "slash") {
-            await instance.defer(true)
-        }
-
-        //Show confirmation embed with buttons - send to channel
+        //Show confirmation embed with buttons - EPHEMERAL (only visible to command user)
         const confirmEmbed = new discord.EmbedBuilder()
             .setColor("#ffaa00")
             .setTitle("⚠️ Confirm Leaderboard Reset")
@@ -71,12 +66,16 @@ export const registerCommandResponders = async () => {
         const row = new discord.ActionRowBuilder<discord.ButtonBuilder>()
             .addComponents(yesButton, noButton)
 
-        //Send confirmation message to channel
-        const textChannel = channel as discord.TextChannel
-        await textChannel.send({
-            embeds: [confirmEmbed],
-            components: [row]
+        //Send ephemeral confirmation (only visible to command user)
+        await instance.reply({
+            id: new api.ODId("opendiscord:leaderboard-reset-confirm"),
+            ephemeral: true,
+            message: {
+                embeds: [confirmEmbed],
+                components: [row]
+            }
         })
+
 
     }))
 
