@@ -52,28 +52,89 @@ export const registerCommandResponders = async () => {
                 return cancel()
             }
 
+            //Get reason from command option
             const reason = instance.options.getString("reason",false) ?? "No reason provided"
 
-            //clear all leaderboard entries
-            const allEntries = await leaderboardDb.getCategory("claims") ?? []
-            for (const entry of allEntries){
-                await leaderboardDb.delete(entry.key, "claims")
+            //Show confirmation embed with buttons
+            const confirmEmbed = new discord.EmbedBuilder()
+                .setColor("#ffaa00")
+                .setTitle("⚠️ Confirm Leaderboard Reset")
+                .setDescription("Are you sure you want to reset the leaderboard? This will **delete all claim points** for all staff members.")
+                .addFields(
+                    {name:"Reason", value: reason},
+                    {name:"Warning", value:"This action cannot be undone!"}
+                )
+
+            const yesButton = new discord.ButtonBuilder()
+                .setCustomId("leaderboard_reset_yes")
+                .setLabel("✅ Yes, Reset")
+                .setStyle(discord.ButtonStyle.Danger)
+
+            const noButton = new discord.ButtonBuilder()
+                .setCustomId("leaderboard_reset_no")
+                .setLabel("❌ No, Cancel")
+                .setStyle(discord.ButtonStyle.Secondary)
+
+            const row = new discord.ActionRowBuilder<discord.ButtonBuilder>()
+                .addComponents(yesButton, noButton)
+
+            const confirmMsg = await instance.reply({
+                id:new api.ODId("opendiscord:leaderboard-reset-confirm"),
+                ephemeral:false,
+                message:{
+                    embeds: [confirmEmbed],
+                    components: [row]
+                }
+            })
+
+            //Wait for button interaction
+            const filter = (interaction: discord.Interaction) => 
+                interaction.user.id === user.id && 
+                (interaction.isButton()) &&
+                (interaction.customId === "leaderboard_reset_yes" || interaction.customId === "leaderboard_reset_no")
+
+            try {
+                const textChannel = instance.channel as discord.TextChannel
+                const collected = await textChannel.awaitMessageComponent({ filter, time: 30000 })
+
+                if (collected.customId === "leaderboard_reset_no"){
+                    await collected.update({content: "❌ Leaderboard reset cancelled.", embeds: [], components: []})
+                    return
+                }
+
+                //User clicked Yes - proceed with reset
+                await collected.update({content: "🔄 Resetting leaderboard...", embeds: [], components: []})
+
+                //Clear all leaderboard entries
+                const allEntries = await leaderboardDb.getCategory("claims") ?? []
+                let deleteCount = 0
+                for (const entry of allEntries){
+                    await leaderboardDb.delete(entry.key, "claims")
+                    deleteCount++
+                }
+
+                const successEmbed = new discord.EmbedBuilder()
+                    .setColor(mainColor)
+                    .setTitle("🔄 Leaderboard Reset")
+                    .setDescription("The leaderboard has been successfully reset!")
+                    .addFields(
+                        {name:"Reset by", value: user.globalName ?? user.username},
+                        {name:"Reason", value: reason},
+                        {name:"Records deleted", value: deleteCount.toString()}
+                    )
+                    .setTimestamp()
+
+                await textChannel.send({embeds: [successEmbed]})
+            } catch (e) {
+                //Timeout - just send timeout message
+                await instance.reply({id:new api.ODId("opendiscord:leaderboard-reset-timeout"), ephemeral:true, message:{content:"❌ Reset cancelled - timed out."}})
+                return
             }
 
-            await instance.reply({
-                id:new api.ODId("opendiscord:leaderboard-reset"),
-                ephemeral:false,
-                message:{embeds:[
-                    new discord.EmbedBuilder()
-                        .setColor(mainColor)
-                        .setTitle("🔄 Leaderboard Reset")
-                        .setDescription(`The leaderboard has been reset by ${user.globalName ?? user.username}`)
-                        .addFields({name:"Reason",value:reason})
-                        .setTimestamp()
-                ]}
-            })
             return
         }
+
+
 
         //HANDLE VIEW SUBCOMMAND (default)
         const allEntries = await leaderboardDb.getCategory("claims") ?? []
