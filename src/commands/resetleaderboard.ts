@@ -141,9 +141,11 @@ export const registerButtonResponders = async () => {
             let deleteCount = 0
             const allEntries = await leaderboardDb.getCategory("claims") ?? []
             for (const entry of allEntries){
-                await leaderboardDb.delete(entry.key, "claims")
+                await leaderboardDb.delete("claims", entry.key)
                 deleteCount++
             }
+
+
 
             const successEmbed = new discord.EmbedBuilder()
                 .setColor(mainColor)
