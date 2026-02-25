@@ -648,24 +648,21 @@ export const loadAllSlashCommands = async () => {
         description:lang.getTranslation("commands.leaderboard") ?? "View the staff ticket claim leaderboard",
         contexts:[discord.InteractionContextType.Guild],
         integrationTypes:[discord.ApplicationIntegrationType.GuildInstall],
+    }))
+
+    //RESET LEADERBOARD
+    if (allowedCommands.includes("resetleaderboard")) commands.add(new api.ODSlashCommand("opendiscord:resetleaderboard",{
+        type:act.ChatInput,
+        name:"resetleaderboard",
+        description:"Reset the staff ticket claim leaderboard (admin only)",
+        contexts:[discord.InteractionContextType.Guild],
+        integrationTypes:[discord.ApplicationIntegrationType.GuildInstall],
         options:[
             {
-                name:"view",
-                description:lang.getTranslation("commands.leaderboardView") ?? "View the leaderboard",
-                type:acot.Subcommand
-            },
-            {
-                name:"reset",
-                description:lang.getTranslation("commands.leaderboardReset") ?? "Reset the leaderboard",
-                type:acot.Subcommand,
-                options:[
-                    {
-                        name:"reason",
-                        description:lang.getTranslation("commands.reason"),
-                        type:acot.String,
-                        required:false
-                    }
-                ]
+                name:"reason",
+                description:"Reason for resetting the leaderboard",
+                type:acot.String,
+                required:false
             }
         ]
     }))
@@ -1251,6 +1248,23 @@ export const loadAllTextCommands = async () => {
         dmPermission:false,
         guildPermission:true,
         allowBots:false
+    }))
+
+    //RESET LEADERBOARD
+    if (allowedCommands.includes("resetleaderboard")) commands.add(new api.ODTextCommand("opendiscord:resetleaderboard",{
+        name:"resetleaderboard",
+        prefix,
+        dmPermission:false,
+        guildPermission:true,
+        allowBots:false,
+        options:[
+            {
+                name:"reason",
+                type:"string",
+                required:false,
+                allowSpaces:true
+            }
+        ]
     }))
 }
 
