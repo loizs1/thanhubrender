@@ -682,6 +682,26 @@ const loadAllSlashCommands = async () => {
             description: lang.getTranslation("commands.leaderboard") ?? "View the staff ticket claim leaderboard",
             contexts: [discord.InteractionContextType.Guild],
             integrationTypes: [discord.ApplicationIntegrationType.GuildInstall],
+            options: [
+                {
+                    name: "view",
+                    description: lang.getTranslation("commands.leaderboardView") ?? "View the leaderboard",
+                    type: acot.Subcommand
+                },
+                {
+                    name: "reset",
+                    description: lang.getTranslation("commands.leaderboardReset") ?? "Reset the leaderboard",
+                    type: acot.Subcommand,
+                    options: [
+                        {
+                            name: "reason",
+                            description: lang.getTranslation("commands.reason"),
+                            type: acot.String,
+                            required: false
+                        }
+                    ]
+                }
+            ]
         }));
 };
 exports.loadAllSlashCommands = loadAllSlashCommands;

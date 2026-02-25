@@ -64,14 +64,45 @@ const registerCommandResponders = async () => {
             return cancel();
         }
         await instance.defer(false);
+        //check subcommand
+        const subCommand = instance.options.getSubCommand();
         //read leaderboard database
         const leaderboardDb = index_1.opendiscord.databases.get("opendiscord:leaderboard");
         if (!leaderboardDb) {
             await instance.reply({ id: new index_1.api.ODId("opendiscord:leaderboard-error"), ephemeral: true, message: { content: ":x: **Leaderboard database not found!**" } });
             return cancel();
         }
-        const allEntries = await leaderboardDb.getCategory("claims") ?? [];
         const mainColor = (generalConfig.data.mainColor ?? "#3498db");
+        //HANDLE RESET SUBCOMMAND
+        if (subCommand === "reset") {
+            //check admin permissions for reset
+            const adminResult = await index_1.opendiscord.permissions.checkCommandPerms("admin", "admin", user, member, channel, guild);
+            if (!adminResult.hasPerms) {
+                await instance.reply(await index_1.opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions").build(source, { guild, channel, user, permissions: ["admin"] }));
+                return cancel();
+            }
+            const reason = instance.options.getString("reason", false) ?? "No reason provided";
+            //clear all leaderboard entries
+            const allEntries = await leaderboardDb.getCategory("claims") ?? [];
+            for (const entry of allEntries) {
+                await leaderboardDb.delete(entry.key, "claims");
+            }
+            await instance.reply({
+                id: new index_1.api.ODId("opendiscord:leaderboard-reset"),
+                ephemeral: false,
+                message: { embeds: [
+                        new discord.EmbedBuilder()
+                            .setColor(mainColor)
+                            .setTitle("🔄 Leaderboard Reset")
+                            .setDescription(`The leaderboard has been reset by ${user.globalName ?? user.username}`)
+                            .addFields({ name: "Reason", value: reason })
+                            .setTimestamp()
+                    ] }
+            });
+            return;
+        }
+        //HANDLE VIEW SUBCOMMAND (default)
+        const allEntries = await leaderboardDb.getCategory("claims") ?? [];
         if (allEntries.length === 0) {
             await instance.reply({
                 id: new index_1.api.ODId("opendiscord:leaderboard-empty"),
@@ -123,7 +154,8 @@ const registerCommandResponders = async () => {
         });
     }));
     leaderboardResponder.workers.add(new index_1.api.ODWorker("opendiscord:logs", -1, (instance, params, source, cancel) => {
-        index_1.opendiscord.log(instance.user.displayName + " used the 'leaderboard' command!", "info", [
+        const subCommand = instance.options.getSubCommand();
+        index_1.opendiscord.log(instance.user.displayName + " used the 'leaderboard " + subCommand + "' command!", "info", [
             { key: "user", value: instance.user.username },
             { key: "userid", value: instance.user.id, hidden: true },
             { key: "method", value: source }
