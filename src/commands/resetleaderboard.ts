@@ -44,8 +44,10 @@ export const registerCommandResponders = async () => {
         //Default reason - no need to type
         const reason = "Manual reset by admin"
 
-        //Defer the reply (ephemeral) so we can send messages with components
-        await instance.defer(true)
+        //For slash commands, defer the reply. For text commands, just send to channel
+        if (source === "slash") {
+            await instance.defer(true)
+        }
 
         //Show confirmation embed with buttons - send to channel
         const confirmEmbed = new discord.EmbedBuilder()
