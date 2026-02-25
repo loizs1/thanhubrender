@@ -504,7 +504,8 @@
         "priorityGet":"Get the priority of the ticket.",
         "priorityList":"Get a list of all tickets with their priority status.",
         "transfer":"Transfer the ticket ownership from one user to another.",
-        "transferUser":"The user to transfer to."
+        "transferUser":"The user to transfer to.",
+        "leaderboard":"View the staff ticket claim leaderboard."
     },
     "helpMenu":{
         "help":"Get a list of all the available commands.",

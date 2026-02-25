@@ -10,7 +10,7 @@
 
     "mainColor":"#3498db",
     "language":"english",
-    "prefix":".",
+    "prefix":"!ticket",
     "serverId":"1339739723693948989",
     "globalAdmins":["1392868366305329282","1421699518209982474"],
 
@@ -20,8 +20,8 @@
     "status":{
         "enabled":true,
         "type":"listening",
-        "mode":"online",
-        "text":"/help",
+        "mode":"idle",
+        "text":"https://www.thanhub.site/",
         "state":""
     },
 
