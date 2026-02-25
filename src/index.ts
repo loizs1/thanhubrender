@@ -675,6 +675,7 @@ const main = async () => {
         await (await import("./commands/priority.js")).registerCommandResponders()
         await (await import("./commands/transfer.js")).registerCommandResponders()
         await (await import("./commands/leaderboard.js")).registerCommandResponders()
+        await (await import("./commands/resetleaderboard.js")).registerCommandResponders()
     }
     await opendiscord.events.get("onCommandResponderLoad").emit([opendiscord.responders.commands,opendiscord.responders,opendiscord.actions])
     await opendiscord.events.get("afterCommandRespondersLoaded").emit([opendiscord.responders.commands,opendiscord.responders,opendiscord.actions])
@@ -695,6 +696,7 @@ const main = async () => {
         await (await import("./commands/unpin.js")).registerButtonResponders()
         await (await import("./commands/role.js")).registerButtonResponders()
         await (await import("./commands/clear.js")).registerButtonResponders()
+        await (await import("./commands/resetleaderboard.js")).registerButtonResponders()
     }
     await opendiscord.events.get("onButtonResponderLoad").emit([opendiscord.responders.buttons,opendiscord.responders,opendiscord.actions])
     await opendiscord.events.get("afterButtonRespondersLoaded").emit([opendiscord.responders.buttons,opendiscord.responders,opendiscord.actions])
