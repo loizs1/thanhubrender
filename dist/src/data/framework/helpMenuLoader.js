@@ -318,5 +318,24 @@ const loadAllHelpMenuComponents = async () => {
                 slashOptions: [{ name: "priority", optional: false }, { name: "reason", optional: true }]
             }));
     }
+    const extra = helpmenu.get("opendiscord:extra");
+    if (extra) {
+        if (allowedCommands.includes("leaderboard"))
+            extra.add(new index_1.api.ODHelpMenuCommandComponent("opendiscord:leaderboard-view", 1, {
+                textName: prefix + "leaderboard",
+                textDescription: lang.getTranslation("commands.leaderboard") ?? "View the staff claim leaderboard",
+                slashName: "/leaderboard view",
+                slashDescription: lang.getTranslation("commands.leaderboardView") ?? "View the leaderboard"
+            }));
+        if (allowedCommands.includes("leaderboard"))
+            extra.add(new index_1.api.ODHelpMenuCommandComponent("opendiscord:leaderboard-reset", 0, {
+                textName: prefix + "leaderboard reset",
+                textDescription: lang.getTranslation("commands.leaderboardReset") ?? "Reset the leaderboard",
+                slashName: "/leaderboard reset",
+                slashDescription: lang.getTranslation("commands.leaderboardReset") ?? "Reset the leaderboard",
+                textOptions: [{ name: "reason", optional: true }],
+                slashOptions: [{ name: "reason", optional: true }]
+            }));
+    }
 };
 exports.loadAllHelpMenuComponents = loadAllHelpMenuComponents;
