@@ -39,8 +39,6 @@ export const registerCommandResponders = async () => {
             return cancel()
         }
 
-        const mainColor = (generalConfig.data.mainColor ?? "#3498db") as discord.ColorResolvable
-
         //Default reason - no need to type
         const reason = "Manual reset by admin"
 
@@ -61,12 +59,12 @@ export const registerCommandResponders = async () => {
             .setTimestamp()
 
         const yesButton = new discord.ButtonBuilder()
-            .setCustomId("leaderboard_reset_yes")
+            .setCustomId(`leaderboard_reset_yes_${user.id}_${Date.now()}`)
             .setLabel("✅ Yes, Reset")
             .setStyle(discord.ButtonStyle.Danger)
 
         const noButton = new discord.ButtonBuilder()
-            .setCustomId("leaderboard_reset_no")
+            .setCustomId(`leaderboard_reset_no_${user.id}_${Date.now()}`)
             .setLabel("❌ No, Cancel")
             .setStyle(discord.ButtonStyle.Secondary)
 
@@ -75,49 +73,73 @@ export const registerCommandResponders = async () => {
 
         //Send confirmation message to channel
         const textChannel = channel as discord.TextChannel
-        const confirmMsg = await textChannel.send({
+        await textChannel.send({
             embeds: [confirmEmbed],
             components: [row]
         })
 
-        //Wait for button interaction
-        const filter = (interaction: discord.Interaction) => 
-            interaction.user.id === user.id && 
-            interaction.isButton() &&
-            (interaction.customId === "leaderboard_reset_yes" || interaction.customId === "leaderboard_reset_no")
+    }))
 
-        try {
-            const collected = await textChannel.awaitMessageComponent({ filter, time: 30000 })
+    resetResponder.workers.add(new api.ODWorker("opendiscord:logs",-1,(instance,params,source,cancel) => {
+        opendiscord.log(instance.user.displayName+" used the 'resetleaderboard' command!","info",[
+            {key:"user",value:instance.user.username},
+            {key:"userid",value:instance.user.id,hidden:true},
+            {key:"method",value:source}
+        ])
+    }))
+}
 
-            if (collected.customId === "leaderboard_reset_no"){
-                const cancelEmbed = new discord.EmbedBuilder()
-                    .setColor("#ff0000")
-                    .setTitle("❌ Cancelled")
-                    .setDescription("Leaderboard reset cancelled.")
-                    .setTimestamp()
-                
-                await collected.update({
-                    embeds: [cancelEmbed], 
-                    components: []
+export const registerButtonResponders = async () => {
+    const generalConfig = opendiscord.configs.get("opendiscord:general")
+    if (!generalConfig) return
+
+    const mainColor = (generalConfig.data.mainColor ?? "#3498db") as discord.ColorResolvable
+    
+    //Get leaderboard database for button handlers
+    const leaderboardDb = opendiscord.databases.get("opendiscord:leaderboard")
+    if (!leaderboardDb) return
+
+    //YES BUTTON - Confirm reset
+    opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:leaderboard-reset-yes",/^leaderboard_reset_yes_/))
+    const yesResponder = opendiscord.responders.buttons.get("opendiscord:leaderboard-reset-yes")
+    if (!yesResponder) return
+    
+    yesResponder.workers.add(
+        new api.ODWorker("opendiscord:leaderboard-reset-yes",0,async (instance,params,source,cancel) => {
+            const {user,channel,guild} = instance
+            
+            //Extract user ID from customId to verify
+            const parts = instance.interaction.customId.split("_")
+            const allowedUserId = parts[3]
+            
+            if (user.id !== allowedUserId) {
+                await instance.reply({
+                    id: new api.ODId("opendiscord:leaderboard-reset-wrong-user"),
+                    ephemeral: true,
+                    message: {content: "❌ You didn't initiate this reset command!"}
                 })
-                return
+                return cancel()
             }
 
-            //User clicked Yes - proceed with reset
+            if (!guild) return
+
+            //Show resetting message
             const resettingEmbed = new discord.EmbedBuilder()
                 .setColor("#3498db")
                 .setTitle("🔄 Resetting...")
                 .setDescription("Resetting leaderboard, please wait...")
                 .setTimestamp()
-            
-            await collected.update({
-                embeds: [resettingEmbed], 
-                components: []
+
+            await instance.defer("update", true)
+            await instance.update({
+                id: new api.ODId("opendiscord:leaderboard-resetting"),
+                ephemeral: true,
+                message: {embeds: [resettingEmbed], components: []}
             })
 
             //Clear all leaderboard entries
-            const allEntries = await leaderboardDb.getCategory("claims") ?? []
             let deleteCount = 0
+            const allEntries = await leaderboardDb.getCategory("claims") ?? []
             for (const entry of allEntries){
                 await leaderboardDb.delete(entry.key, "claims")
                 deleteCount++
@@ -129,35 +151,53 @@ export const registerCommandResponders = async () => {
                 .setDescription("The leaderboard has been successfully reset!")
                 .addFields(
                     {name:"Reset by", value: user.globalName ?? user.username},
-                    {name:"Reason", value: reason},
+                    {name:"Reason", value: "Manual reset by admin"},
                     {name:"Records deleted", value: deleteCount.toString()}
                 )
                 .setTimestamp()
 
-            await textChannel.send({embeds: [successEmbed]})
+            await instance.update({
+                id: new api.ODId("opendiscord:leaderboard-reset-success"),
+                ephemeral: true,
+                message: {embeds: [successEmbed], components: []}
+            })
+        })
+    )
 
-        } catch (e) {
-            //Timeout - show timeout message
-            const timeoutEmbed = new discord.EmbedBuilder()
+    //NO BUTTON - Cancel reset
+    opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:leaderboard-reset-no",/^leaderboard_reset_no_/))
+    const noResponder = opendiscord.responders.buttons.get("opendiscord:leaderboard-reset-no")
+    if (!noResponder) return
+    
+    noResponder.workers.add(
+        new api.ODWorker("opendiscord:leaderboard-reset-no",0,async (instance,params,source,cancel) => {
+            const {user} = instance
+            
+            //Extract user ID from customId to verify
+            const parts = instance.interaction.customId.split("_")
+            const allowedUserId = parts[3]
+            
+            if (user.id !== allowedUserId) {
+                await instance.reply({
+                    id: new api.ODId("opendiscord:leaderboard-reset-wrong-user"),
+                    ephemeral: true,
+                    message: {content: "❌ You didn't initiate this reset command!"}
+                })
+                return cancel()
+            }
+
+            const cancelEmbed = new discord.EmbedBuilder()
                 .setColor("#ff0000")
-                .setTitle("⏰ Timeout")
-                .setDescription("Reset cancelled - no response received within 30 seconds.")
+                .setTitle("❌ Cancelled")
+                .setDescription("Leaderboard reset cancelled.")
                 .setTimestamp()
 
-            await confirmMsg.edit({
-                embeds: [timeoutEmbed],
-                components: []
+            await instance.defer("update", true)
+            await instance.update({
+                id: new api.ODId("opendiscord:leaderboard-reset-cancelled"),
+                ephemeral: true,
+                message: {embeds: [cancelEmbed], components: []}
             })
-            return
-        }
-
-    }))
-
-    resetResponder.workers.add(new api.ODWorker("opendiscord:logs",-1,(instance,params,source,cancel) => {
-        opendiscord.log(instance.user.displayName+" used the 'resetleaderboard' command!","info",[
-            {key:"user",value:instance.user.username},
-            {key:"userid",value:instance.user.id,hidden:true},
-            {key:"method",value:source}
-        ])
-    }))
+        })
+    )
 }
