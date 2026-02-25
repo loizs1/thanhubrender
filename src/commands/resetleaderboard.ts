@@ -44,7 +44,14 @@ export const registerCommandResponders = async () => {
         //Default reason - no need to type
         const reason = "Manual reset by admin"
 
-        //Show confirmation embed with buttons
+        //First, reply to the command to acknowledge it
+        await instance.reply({
+            id: new api.ODId("opendiscord:resetleaderboard-init"),
+            ephemeral: false,
+            message: {content: "⏳ Processing reset command..."}
+        })
+
+        //Show confirmation embed with buttons - send to channel
         const confirmEmbed = new discord.EmbedBuilder()
             .setColor("#ffaa00")
             .setTitle("⚠️ Confirm Leaderboard Reset")
@@ -68,7 +75,7 @@ export const registerCommandResponders = async () => {
         const row = new discord.ActionRowBuilder<discord.ButtonBuilder>()
             .addComponents(yesButton, noButton)
 
-        //Send confirmation message using channel.send (cast to TextChannel)
+        //Send confirmation message to channel
         const textChannel = channel as discord.TextChannel
         const confirmMsg = await textChannel.send({
             embeds: [confirmEmbed],
