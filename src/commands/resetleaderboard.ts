@@ -19,8 +19,11 @@ export const registerCommandResponders = async () => {
         //check admin permissions for reset
         const adminResult = await opendiscord.permissions.checkCommandPerms("admin","admin",user,member,channel,guild)
         if (!adminResult.hasPerms){
-            if (adminResult.reason == "not-in-server") await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-not-in-guild").build("slash",{channel,user}))
-            else await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions").build(source,{guild,channel,user,permissions:["admin"]}))
+            if (adminResult.reason == "not-in-server") {
+                await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-not-in-guild").build("slash",{channel,user}))
+            } else {
+                await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions").build(source,{guild,channel,user,permissions:["admin"]}))
+            }
             return cancel()
         }
 
@@ -65,8 +68,10 @@ export const registerCommandResponders = async () => {
         const row = new discord.ActionRowBuilder<discord.ButtonBuilder>()
             .addComponents(yesButton, noButton)
 
-        //Send confirmation message - use channel.send for both slash and text
+        //Cast channel to TextChannel for sending messages
         const textChannel = channel as discord.TextChannel
+
+        //Send confirmation message
         const confirmMsg = await textChannel.send({
             embeds: [confirmEmbed],
             components: [row]
@@ -79,7 +84,7 @@ export const registerCommandResponders = async () => {
             (interaction.customId === "leaderboard_reset_yes" || interaction.customId === "leaderboard_reset_no")
 
         try {
-            const collected = await channel.awaitMessageComponent({ filter, time: 30000 })
+            const collected = await textChannel.awaitMessageComponent({ filter, time: 30000 })
 
             if (collected.customId === "leaderboard_reset_no"){
                 const cancelEmbed = new discord.EmbedBuilder()
