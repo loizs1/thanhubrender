@@ -697,6 +697,7 @@ const main = async () => {
         await (await import("./commands/role.js")).registerButtonResponders()
         await (await import("./commands/clear.js")).registerButtonResponders()
         await (await import("./commands/resetleaderboard.js")).registerButtonResponders()
+        await (await import("./commands/leaderboard.js")).registerButtonResponders()
     }
     await opendiscord.events.get("onButtonResponderLoad").emit([opendiscord.responders.buttons,opendiscord.responders,opendiscord.actions])
     await opendiscord.events.get("afterButtonRespondersLoaded").emit([opendiscord.responders.buttons,opendiscord.responders,opendiscord.actions])
