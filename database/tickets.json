@@ -1,0 +1,46 @@
+[
+    {
+        "category":"opendiscord:ticket",
+        "key":"1476490357570277481",
+        "value":{
+            "id":"1476490357570277481",
+            "option":"purchase-indonesia",
+            "version":"v4.1.3",
+            "data":[
+                {"id":"opendiscord:busy","value":false},
+                {"id":"opendiscord:ticket-message","value":"1476490359940055090"},
+                {"id":"opendiscord:participants","value":[{"type":"role","id":"1392868366305329282"},{"type":"role","id":"1421699518209982474"},{"type":"role","id":"1340176756849770608"},{"type":"role","id":"1441766506856976415"},{"type":"role","id":"1339853552788443146"},{"type":"role","id":"1349019409779261573"},{"type":"role","id":"1445435634792796181"},{"type":"user","id":"699934641519460392"}]},
+                {"id":"opendiscord:channel-suffix","value":"0229"},
+                {"id":"opendiscord:previous-creators","value":[]},
+                {"id":"opendiscord:open","value":true},
+                {"id":"opendiscord:opened-by","value":"699934641519460392"},
+                {"id":"opendiscord:opened-on","value":1772093133597},
+                {"id":"opendiscord:closed","value":false},
+                {"id":"opendiscord:closed-by","value":null},
+                {"id":"opendiscord:closed-on","value":null},
+                {"id":"opendiscord:reopened","value":false},
+                {"id":"opendiscord:reopened-by","value":null},
+                {"id":"opendiscord:reopened-on","value":null},
+                {"id":"opendiscord:claimed","value":true},
+                {"id":"opendiscord:claimed-by","value":"816641436736553030"},
+                {"id":"opendiscord:claimed-on","value":1772093765122},
+                {"id":"opendiscord:pinned","value":false},
+                {"id":"opendiscord:pinned-by","value":null},
+                {"id":"opendiscord:pinned-on","value":null},
+                {"id":"opendiscord:for-deletion","value":false},
+                {"id":"opendiscord:category","value":null},
+                {"id":"opendiscord:category-mode","value":null},
+                {"id":"opendiscord:autoclose-enabled","value":false},
+                {"id":"opendiscord:autoclose-hours","value":0},
+                {"id":"opendiscord:autoclosed","value":false},
+                {"id":"opendiscord:autodelete-enabled","value":false},
+                {"id":"opendiscord:autodelete-days","value":0},
+                {"id":"opendiscord:answers","value":[{"id":"payment-indonesia","name":"Pembayaran apa yang akan di gunakan?","type":"short","value":"test"},{"id":"keys-indonesia","name":"Berapa Banyak Key Yang akan dibeli?","type":"short","value":"testtt"}]},
+                {"id":"opendiscord:priority","value":-1},
+                {"id":"opendiscord:topic","value":"Indonesia purchase"},
+                {"id":"opendiscord:message-sent","value":false},
+                {"id":"opendiscord:admin-message-sent","value":false}
+            ]
+        }
+    }
+]

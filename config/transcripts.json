@@ -1,0 +1,55 @@
+{
+    "general":{
+        "enabled":true,
+
+        "enableChannel":true,
+        "enableCreatorDM":false,
+        "enableParticipantDM":false,
+        "enableActiveAdminDM":false,
+        "enableEveryAdminDM":false,
+
+        "channel":"1355055972460003438",
+        "mode":"html"
+    },
+    "embedSettings":{
+        "customColor":"#3498db",
+        "listAllParticipants":false,
+        "includeTicketStats":true
+    },
+    "textTranscriptStyle":{
+        "layout":"simple",
+        "includeStats":true,
+        "includeIds":false,
+        "includeEmbeds":true,
+        "includeFiles":true,
+        "includeBotMessages":true,
+
+        "fileMode":"user-name",
+        "customFileName":""
+    },
+    "htmlTranscriptStyle":{
+        "background":{
+            "enableCustomBackground":false,
+            "backgroundColor":"#3498db",
+            "backgroundImage":"" 
+        },
+        "header":{
+            "enableCustomHeader":false,
+            "backgroundColor":"#202225",
+            "decoColor":"#3498db",
+            "textColor":"#ffffff"
+        },
+        "stats":{
+            "enableCustomStats":false,
+            "backgroundColor":"#202225",
+            "keyTextColor":"#737373",
+            "valueTextColor":"#ffffff",
+            "hideBackgroundColor":"#40444a",
+            "hideTextColor":"#ffffff"
+        },
+        "favicon":{
+            "enableCustomFavicon":false,
+            "imageUrl":"https://t.dj-dj.be/favicon.png"
+        }
+    }
+}

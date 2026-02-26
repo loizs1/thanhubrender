@@ -1,0 +1,52 @@
+[
+    {
+        "category":"opendiscord:used-option",
+        "key":"purchase-indonesia",
+        "value":{
+            "id":"purchase-indonesia",
+            "type":"opendiscord:ticket",
+            "version":"v4.1.3",
+            "data":[
+                {"id":"opendiscord:name","value":"Purchase Indonesia"},
+                {"id":"opendiscord:description","value":"For Indonesia purchases"},
+                {"id":"opendiscord:button-emoji","value":"🇮🇩"},
+                {"id":"opendiscord:button-label","value":"ID Purchase"},
+                {"id":"opendiscord:button-color","value":"red"},
+                {"id":"opendiscord:admins","value":["1392868366305329282","1421699518209982474","1340176756849770608","1441766506856976415","1339853552788443146","1349019409779261573","1445435634792796181"]},
+                {"id":"opendiscord:admins-readonly","value":[]},
+                {"id":"opendiscord:allow-blacklisted-users","value":false},
+                {"id":"opendiscord:questions","value":["payment-indonesia","keys-indonesia"]},
+                {"id":"opendiscord:roles","value":[]},
+                {"id":"opendiscord:channel-prefix","value":"purchase-indo-"},
+                {"id":"opendiscord:channel-suffix","value":"random-number"},
+                {"id":"opendiscord:channel-category","value":""},
+                {"id":"opendiscord:channel-category-closed","value":""},
+                {"id":"opendiscord:channel-category-backup","value":""},
+                {"id":"opendiscord:channel-categories-claimed","value":[]},
+                {"id":"opendiscord:channel-topic","value":"Indonesia purchase"},
+                {"id":"opendiscord:dm-message-enabled","value":false},
+                {"id":"opendiscord:dm-message-text","value":""},
+                {"id":"opendiscord:dm-message-embed","value":{"enabled":false,"title":"","description":"","customColor":"","image":"","thumbnail":"","fields":[],"timestamp":false}},
+                {"id":"opendiscord:ticket-message-enabled","value":true},
+                {"id":"opendiscord:ticket-message-text","value":""},
+                {"id":"opendiscord:ticket-message-embed","value":{"enabled":true,"title":"Indonesia Purchase","description":"Terima kasih atas pertanyaan pembelian Anda!\nTim sales kami akan membantu Anda dengan pesanan dari Indonesia.","customColor":"#e74c3c","image":"","thumbnail":"","fields":[],"timestamp":false}},
+                {"id":"opendiscord:ticket-message-ping","value":{"@here":false,"@everyone":false,"custom":["1340176756849770608","1441766506856976415","1349019409779261573"]}},
+                {"id":"opendiscord:autoclose-enable-hours","value":false},
+                {"id":"opendiscord:autoclose-enable-leave","value":false},
+                {"id":"opendiscord:autoclose-disable-claim","value":false},
+                {"id":"opendiscord:autoclose-hours","value":24},
+                {"id":"opendiscord:autodelete-enable-days","value":false},
+                {"id":"opendiscord:autodelete-enable-leave","value":false},
+                {"id":"opendiscord:autodelete-disable-claim","value":false},
+                {"id":"opendiscord:autodelete-days","value":7},
+                {"id":"opendiscord:cooldown-enabled","value":false},
+                {"id":"opendiscord:cooldown-minutes","value":10},
+                {"id":"opendiscord:limits-enabled","value":false},
+                {"id":"opendiscord:limits-maximum-global","value":20},
+                {"id":"opendiscord:limits-maximum-user","value":3},
+                {"id":"opendiscord:slowmode-enabled","value":false},
+                {"id":"opendiscord:slowmode-seconds","value":20}
+            ]
+        }
+    }
+]

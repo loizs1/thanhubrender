@@ -1,0 +1,39 @@
+[
+    {
+        "id":"main-panel",
+        "name":"Tickets",
+        "description":"Create a support ticket",
+        "options":["support","giveaway","purchase-internasional","purchase-indonesia"],
+        "roles":[],
+        "dropdown":true,
+        "text":"",
+        "embed":{
+            "enabled":true,
+            "title":"🎫 Thanhub Support",
+            "description":"Select a ticket type from the dropdown menu below:\n\n‍♂️ **Support** - Get help from our support team\n🎁 **Giveaway** - Join our giveaways\n🌍 **Purchase Intl** - International purchases\n🇮🇩 **Purchase ID** - Indonesia purchases",
+            "url":"",
+            "customColor":"#3498db",
+            "image":"https://cdn.discordapp.com/attachments/1340293733727342664/1439621872445558786/standard_2.gif?ex=69a10019&is=699fae99&hm=406f679cb2a2027d0a5a2c21af03704e6840e7dfbc7decac8e40316aaa473a21&",
+            "thumbnail":"https://cdn.discordapp.com/icons/1393871612876423199/84a3f5375435db09d45a09ec1ab62881.png?size=4096",
+            "footer":"Thanhub Support",
+            "timestamp":true,
+            "fields":[]
+        },
+        "settings":{
+            "dropdownPlaceholder":"Select a ticket type...",
+            "describeOptionsLayout":"simple",
+            "displayOptionsInline":false,
+            "disableButtonAfterCreation":false,
+            "enableMaxTicketsWarningInText":false,
+            "enableMaxTicketsWarningInEmbed":true,
+            "describeOptionsCustomTitle":"",
+            "describeOptionsInText":false,
+            "describeOptionsInEmbedFields":false,
+            "describeOptionsInEmbedDescription":true,
+            "maxTicketReached":"Sorry, the maximum amount of tickets has been reached!",
+            "cooldownReached":"Please wait before creating another ticket!",
+            "noPermissions":"You don't have the required permissions to create a ticket!",
+            "noRoles":"You don't have the required roles to create this ticket!"
+        }
+    }
+]

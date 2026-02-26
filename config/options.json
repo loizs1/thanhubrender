@@ -1,0 +1,350 @@
+[
+    {
+        "id":"support",
+        "name":"Support",
+        "description":"Get help from our support team",
+        "type":"ticket",
+
+        "button":{
+            "emoji":"🎫",
+            "label":"Support",
+            "color":"blue"
+        },
+
+        "roles":[],
+        "ticketAdmins":["1432557824742916158","1392868366305329282","1421699518209982474","1340176756849770608","1441766506856976415","1339853552788443146","1349019409779261573"],
+        "readonlyAdmins":[],
+        "allowCreationByBlacklistedUsers":false,
+        "questions":["support-question2","support-question3","support-question"],
+
+        "channel":{
+            "prefix":"support-ticket-",
+            "suffix":"random-number",
+            "category":"",
+            "closedCategory":"",
+            "backupCategory":"",
+            "claimedCategory":[],
+            "topic":"Support ticket"
+        },
+        
+        "dmMessage":{
+            "enabled":false,
+            "text":"",
+            "embed":{
+                "enabled":false,
+                "title":"",
+                "description":"",
+                "customColor":"",
+                "image":"",
+                "thumbnail":"",
+                "fields":[],
+                "timestamp":false
+            }
+        },
+        "ticketMessage":{
+            "enabled":true,
+            "text":"",
+            "embed":{
+                "enabled":true,
+                "title":"Support Ticket",
+                "description":"Thank you for creating a support ticket!\nOur support team will help you as soon as possible!",
+                "customColor":"#3498db",
+                "image":"",
+                "thumbnail":"",
+                "fields":[],
+                "timestamp":false
+            },
+            "ping":{
+                "@here":false,
+                "@everyone":false,
+                "custom":["1432557824742916158"]
+            }
+        },
+        "autoclose":{
+            "enableInactiveHours":false,
+            "inactiveHours":24,
+            "enableUserLeave":false,
+            "disableOnClaim":false
+        },
+        "autodelete":{
+            "enableInactiveDays":false,
+            "inactiveDays":7,
+            "enableUserLeave":false,
+            "disableOnClaim":false
+        },
+        "cooldown":{
+            "enabled":false,
+            "cooldownMinutes":10
+        },
+        "limits":{
+            "enabled":false,
+            "globalMaximum":20,
+            "userMaximum":3
+        },
+        "slowMode":{
+            "enabled":false,
+            "slowModeSeconds":20
+        }
+    },
+    {
+        "id":"giveaway",
+        "name":"Giveaway",
+        "description":"Join our giveaways",
+        "type":"ticket",
+
+        "button":{
+            "emoji":"🎁",
+            "label":"Giveaway",
+            "color":"green"
+        },
+
+        "roles":[],
+        "ticketAdmins":["1432557824742916158","1392868366305329282","1421699518209982474","1340176756849770608","1441766506856976415","1339853552788443146","1349019409779261573"],
+        "readonlyAdmins":[],
+        "allowCreationByBlacklistedUsers":false,
+        "questions":["giveaway-type"],
+
+        "channel":{
+            "prefix":"giveaway-ticket-",
+            "suffix":"random-number",
+            "category":"",
+            "closedCategory":"",
+            "backupCategory":"",
+            "claimedCategory":[],
+            "topic":"Giveaway ticket"
+        },
+        
+        "dmMessage":{
+            "enabled":false,
+            "text":"",
+            "embed":{
+                "enabled":false,
+                "title":"",
+                "description":"",
+                "customColor":"",
+                "image":"",
+                "thumbnail":"",
+                "fields":[],
+                "timestamp":false
+            }
+        },
+        "ticketMessage":{
+            "enabled":true,
+            "text":"",
+            "embed":{
+                "enabled":true,
+                "title":"Giveaway Ticket",
+                "description":"Thank you for your interest in our giveaways!\nOur team will contact you soon.",
+                "customColor":"#2ecc71",
+                "image":"",
+                "thumbnail":"",
+                "fields":[],
+                "timestamp":false
+            },
+            "ping":{
+                "@here":false,
+                "@everyone":false,
+                "custom":["1432557824742916158"]
+            }
+        },
+        "autoclose":{
+            "enableInactiveHours":false,
+            "inactiveHours":24,
+            "enableUserLeave":false,
+            "disableOnClaim":false
+        },
+        "autodelete":{
+            "enableInactiveDays":false,
+            "inactiveDays":7,
+            "enableUserLeave":false,
+            "disableOnClaim":false
+        },
+        "cooldown":{
+            "enabled":false,
+            "cooldownMinutes":10
+        },
+        "limits":{
+            "enabled":false,
+            "globalMaximum":20,
+            "userMaximum":3
+        },
+        "slowMode":{
+            "enabled":false,
+            "slowModeSeconds":20
+        }
+    },
+    {
+        "id":"purchase-internasional",
+        "name":"Purchase International",
+        "description":"For international purchases",
+        "type":"ticket",
+
+        "button":{
+            "emoji":"🌍",
+            "label":"Intl Purchase",
+            "color":"blue"
+        },
+
+        "roles":[],
+        "ticketAdmins":["1392868366305329282","1421699518209982474","1340176756849770608","1441766506856976415","1339853552788443146","1349019409779261573","1445435634792796181"],
+        "readonlyAdmins":[],
+        "allowCreationByBlacklistedUsers":false,
+        "questions":["payment-methodinter","keys-amount"],
+
+        "channel":{
+            "prefix":"purchase-ticket-",
+            "suffix":"random-number",
+            "category":"",
+            "closedCategory":"",
+            "backupCategory":"",
+            "claimedCategory":[],
+            "topic":"International purchase"
+        },
+        
+        "dmMessage":{
+            "enabled":false,
+            "text":"",
+            "embed":{
+                "enabled":false,
+                "title":"",
+                "description":"",
+                "customColor":"",
+                "image":"",
+                "thumbnail":"",
+                "fields":[],
+                "timestamp":false
+            }
+        },
+        "ticketMessage":{
+            "enabled":true,
+            "text":"",
+            "embed":{
+                "enabled":true,
+                "title":"International Purchase",
+                "description":"Thank you for your purchase inquiry!\nOur sales team will assist you with international orders.",
+                "customColor":"#3498db",
+                "image":"",
+                "thumbnail":"",
+                "fields":[],
+                "timestamp":false
+            },
+            "ping":{
+                "@here":false,
+                "@everyone":false,
+                "custom":["1340176756849770608","1441766506856976415", "1349019409779261573"]
+            }
+        },
+        "autoclose":{
+            "enableInactiveHours":false,
+            "inactiveHours":24,
+            "enableUserLeave":false,
+            "disableOnClaim":false
+        },
+        "autodelete":{
+            "enableInactiveDays":false,
+            "inactiveDays":7,
+            "enableUserLeave":false,
+            "disableOnClaim":false
+        },
+        "cooldown":{
+            "enabled":false,
+            "cooldownMinutes":10
+        },
+        "limits":{
+            "enabled":false,
+            "globalMaximum":20,
+            "userMaximum":3
+        },
+        "slowMode":{
+            "enabled":false,
+            "slowModeSeconds":20
+        }
+    },
+    {
+        "id":"purchase-indonesia",
+        "name":"Purchase Indonesia",
+        "description":"For Indonesia purchases",
+        "type":"ticket",
+
+        "button":{
+            "emoji":"🇮🇩",
+            "label":"ID Purchase",
+            "color":"red"
+        },
+
+        "roles":[],
+        "ticketAdmins":["1392868366305329282","1421699518209982474","1340176756849770608","1441766506856976415","1339853552788443146","1349019409779261573","1445435634792796181"],
+        "readonlyAdmins":[],
+        "allowCreationByBlacklistedUsers":false,
+        "questions":["payment-indonesia","keys-indonesia"],
+
+        "channel":{
+            "prefix":"purchase-ticket-",
+            "suffix":"random-number",
+            "category":"",
+            "closedCategory":"",
+            "backupCategory":"",
+            "claimedCategory":[],
+            "topic":"Indonesia purchase"
+        },
+        
+        "dmMessage":{
+            "enabled":false,
+            "text":"",
+            "embed":{
+                "enabled":false,
+                "title":"",
+                "description":"",
+                "customColor":"",
+                "image":"",
+                "thumbnail":"",
+                "fields":[],
+                "timestamp":false
+            }
+        },
+        "ticketMessage":{
+            "enabled":true,
+            "text":"",
+            "embed":{
+                "enabled":true,
+                "title":"Indonesia Purchase",
+                "description":"Terima kasih atas pertanyaan pembelian Anda!\nTim sales kami akan membantu Anda dengan pesanan dari Indonesia.",
+                "customColor":"#e74c3c",
+                "image":"",
+                "thumbnail":"",
+                "fields":[],
+                "timestamp":false
+            },
+            "ping":{
+                "@here":false,
+                "@everyone":false,
+                "custom":["1340176756849770608","1441766506856976415", "1349019409779261573"]
+            }
+        },
+        "autoclose":{
+            "enableInactiveHours":false,
+            "inactiveHours":24,
+            "enableUserLeave":false,
+            "disableOnClaim":false
+        },
+        "autodelete":{
+            "enableInactiveDays":false,
+            "inactiveDays":7,
+            "enableUserLeave":false,
+            "disableOnClaim":false
+        },
+        "cooldown":{
+            "enabled":false,
+            "cooldownMinutes":10
+        },
+        "limits":{
+            "enabled":false,
+            "globalMaximum":20,
+            "userMaximum":3
+        },
+        "slowMode":{
+            "enabled":false,
+            "slowModeSeconds":20
+        }
+    }
+]
