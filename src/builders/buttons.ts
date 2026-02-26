@@ -214,17 +214,20 @@ const ticketButtons = () => {
 
     //CLOSE TICKET WITH TRANSCRIPT
     buttons.add(new api.ODButton("opendiscord:close-ticket-transcript"))
-    buttons.getSafe("opendiscord:close-ticket-transcript").workers.add(
-        new api.ODWorker("opendiscord:close-ticket-transcript",0,async (instance,params,source) => {
-            const {guild,channel,ticket} = params
+    const closeTranscriptButton = buttons.get("opendiscord:close-ticket-transcript")
+    if (closeTranscriptButton){
+        closeTranscriptButton.workers.add(
+            new api.ODWorker("opendiscord:close-ticket-transcript",0,async (instance,params,source) => {
+                const {guild,channel,ticket} = params
 
-            instance.setMode("button")
-            instance.setCustomId("od:close-ticket-transcript_"+source)
-            instance.setColor("red")
-            instance.setEmoji("📄")
-            instance.setLabel(lang.getTranslation("actions.buttons.close"))
-        })
-    )
+                instance.setMode("button")
+                instance.setCustomId("od:close-ticket-transcript_"+source)
+                instance.setColor("red")
+                instance.setEmoji("📄")
+                instance.setLabel(lang.getTranslation("actions.buttons.close"))
+            })
+        )
+    }
 
     //DELETE TICKET
     buttons.add(new api.ODButton("opendiscord:delete-ticket"))
