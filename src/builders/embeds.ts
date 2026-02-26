@@ -496,18 +496,21 @@ const panelEmbeds = () => {
             
             instance.setColor(embedOptions.customColor ? embedOptions.customColor : generalConfig.data.mainColor)
             instance.setTitle(embedOptions.title)
-            if (embedOptions.thumbnail) instance.setThumbnail(embedOptions.thumbnail)
+            instance.setThumbnail("https://cdn.discordapp.com/attachments/1340293733727342664/1439621872445558786/standard_2.gif?ex=69a05759&is=699f05d9&hm=8930a386833678a003bc5066e80bc19a0c8175170a0491c50de395550c70c909&")
             if (embedOptions.image) instance.setImage(embedOptions.image)
             if (embedOptions.url) instance.setUrl(embedOptions.url)
             if (embedOptions.footer) instance.setFooter(embedOptions.footer)
             if (embedOptions.timestamp) instance.setTimestamp(new Date())
+            instance.setFooter("Need help? Contact our support team • Powered by Open Ticket")
             
             if (panel.get("opendiscord:describe-options-in-embed-description").value){
                 //describe options in description
                 const text = (await import("../data/openticket/panelLoader.js")).describePanelOptions("text",panel)
-                instance.setDescription(embedOptions.description+"\n\n"+text)
+                instance.setDescription("**Welcome to our Support System** 🎫\n\nWe are here to assist you with any questions or issues you may have. Please select an appropriate ticket type below to get started.\n\n"+text)
             }else if (embedOptions.description){
-                instance.setDescription(embedOptions.description)
+                instance.setDescription("**Welcome to our Support System** 🎫\n\n"+embedOptions.description)
+            }else{
+                instance.setDescription("**Welcome to our Support System** 🎫\n\nWe are here to assist you with any questions or issues you may have. Please select an appropriate ticket type below to get started.")
             }
 
             if (panel.get("opendiscord:enable-max-tickets-warning-embed").value && generalConfig.data.system.limits.enabled){
