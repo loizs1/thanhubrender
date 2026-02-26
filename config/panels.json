@@ -13,8 +13,8 @@
             "description":"Select a ticket type from the dropdown menu below:\n\n‍♂️ **Support** - Get help from our support team\n🎁 **Giveaway** - Join our giveaways\n🌍 **Purchase Intl** - International purchases\n🇮🇩 **Purchase ID** - Indonesia purchases",
             "url":"",
             "customColor":"#3498db",
-            "image":"",
-            "thumbnail":"",
+            "image":"https://cdn.discordapp.com/attachments/1340293733727342664/1439621872445558786/standard_2.gif?ex=69a10019&is=699fae99&hm=406f679cb2a2027d0a5a2c21af03704e6840e7dfbc7decac8e40316aaa473a21&",
+            "thumbnail":"https://cdn.discordapp.com/icons/1393871612876423199/84a3f5375435db09d45a09ec1ab62881.png?size=4096",
             "footer":"Thanhub Support",
             "timestamp":true,
             "fields":[]
