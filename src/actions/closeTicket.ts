@@ -119,20 +119,18 @@ export const registerActions = async () => {
                 if (originalNameData) originalNameData.value = channel.name
             }
             
-            //rename channel to close-{username}
-            const creatorId = ticket.get("opendiscord:opened-by").value
-            if (creatorId){
-                try {
-                    const creatorMember = await guild.members.fetch(creatorId).catch(() => null)
-                    const creatorName = creatorMember ? creatorMember.user.username : creatorId
-                    await channel.setName("close-" + creatorName)
-                } catch(e) {
-                    opendiscord.log("Unable to rename ticket channel on close!","error",[
-                        {key:"channel",value:"#"+channel.name},
-                        {key:"channelid",value:channel.id,hidden:true}
-                    ])
-                    opendiscord.debugfile.writeErrorMessage(new api.ODError(e,"uncaughtException"))
-                }
+            //rename channel to close-{ticket-id} (e.g., close-indo-as123)
+            try {
+                // Extract last 5 characters of ticket ID for short format, or use full ID
+                const ticketId = ticket.id.value
+                const shortId = ticketId.slice(-5)
+                await channel.setName("close-indo-" + shortId)
+            } catch(e) {
+                opendiscord.log("Unable to rename ticket channel on close!","error",[
+                    {key:"channel",value:"#"+channel.name},
+                    {key:"channelid",value:channel.id,hidden:true}
+                ])
+                opendiscord.debugfile.writeErrorMessage(new api.ODError(e,"uncaughtException"))
             }
 
             //update ticket message

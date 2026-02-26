@@ -89,6 +89,51 @@ export const registerButtonResponders = async () => {
             else await instance.defer("update",false)
         })
     )
+
+    //CLOSE TICKET WITH TRANSCRIPT BUTTON RESPONDER
+    opendiscord.responders.buttons.add(new api.ODButtonResponder("opendiscord:close-ticket-transcript",/^od:close-ticket-transcript_/))
+    opendiscord.responders.buttons.get("opendiscord:close-ticket-transcript").workers.add(
+        new api.ODWorker("opendiscord:close-ticket-transcript",0,async (instance,params,source,cancel) => {
+            const {user,member,channel,guild} = instance
+            if (!channel) return cancel()
+            
+            //check permissions
+            const permsResult = await opendiscord.permissions.checkCommandPerms(generalConfig.data.system.permissions.close,"support",user,member,channel,guild)
+            if (!permsResult.hasPerms){
+                if (permsResult.reason == "not-in-server") await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-not-in-guild").build("button",{channel,user}))
+                else await instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-no-permissions").build("button",{guild,channel,user,permissions:["support"]}))
+                return cancel()
+            }
+            
+            if (!guild){
+                instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-not-in-guild").build("button",{channel,user}))
+                return cancel()
+            }
+            
+            const ticket = opendiscord.tickets.get(channel.id)
+            if (!ticket || channel.isDMBased()){
+                instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-ticket-unknown").build("button",{guild,channel,user}))
+                return cancel()
+            }
+            
+            //return when already closed
+            if (ticket.get("opendiscord:closed").value){
+                instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error").build("button",{guild,channel,user,error:lang.getTranslation("errors.actionInvalid.close"),layout:"simple"}))
+                return cancel()
+            }
+            
+            //return when busy
+            if (ticket.get("opendiscord:busy").value){
+                instance.reply(await opendiscord.builders.messages.getSafe("opendiscord:error-ticket-busy").build("button",{guild,channel,user}))
+                return cancel()
+            }
+            
+            // Close ticket with transcript
+            await instance.defer("update",false)
+            await opendiscord.actions.get("opendiscord:close-ticket").run("reopen-message",{guild,channel,user,ticket,reason:null,sendMessage:true})
+            await instance.update(await opendiscord.builders.messages.getSafe("opendiscord:close-message").build("other",{guild,channel,user,ticket,reason:null}))
+        })
+    )
 }
 
 export const registerModalResponders = async () => {

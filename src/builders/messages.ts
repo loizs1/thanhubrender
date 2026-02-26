@@ -752,7 +752,8 @@ const ticketMessages = () => {
         new api.ODWorker("opendiscord:reopen-message",0,async (instance,params,source) => {
             const {guild,channel,user,ticket,reason} = params
             instance.addEmbed(await embeds.getSafe("opendiscord:reopen-message").build(source,{guild,channel,user,ticket,reason}))
-            if (generalConfig.data.system.enableTicketCloseButtons) instance.addComponent(await buttons.getSafe("opendiscord:close-ticket").build("reopen-message",{guild,channel,user,ticket}))
+            // Close button now closes with transcript (like delete button on close message)
+            if (generalConfig.data.system.enableTicketCloseButtons) instance.addComponent(await buttons.getSafe("opendiscord:close-ticket-transcript").build("reopen-message",{guild,channel,user,ticket}))
             if (generalConfig.data.system.enableTicketDeleteButtons) instance.addComponent(await buttons.getSafe("opendiscord:delete-ticket").build("reopen-message",{guild,channel,user,ticket}))
         })
     )
