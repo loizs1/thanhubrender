@@ -1,3 +1,8 @@
+/////////////// LOAD ENVIRONMENT VARIABLES ///////////////
+require('dotenv').config()
+console.log("OT: Environment variables loaded from .env")
+/////////////// LOAD ENVIRONMENT VARIABLES ///////////////
+
 /////////////// STARTUP FLAGS ///////////////
 const flags = [
     // Edit flags here when being unable to use the flags in the command prompt.
