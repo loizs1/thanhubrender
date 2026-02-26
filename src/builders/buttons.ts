@@ -214,7 +214,7 @@ const ticketButtons = () => {
 
     //CLOSE TICKET WITH TRANSCRIPT
     buttons.add(new api.ODButton("opendiscord:close-ticket-transcript"))
-    buttons.get("opendiscord:close-ticket-transcript").workers.add(
+    buttons.getSafe("opendiscord:close-ticket-transcript").workers.add(
         new api.ODWorker("opendiscord:close-ticket-transcript",0,async (instance,params,source) => {
             const {guild,channel,ticket} = params
 
