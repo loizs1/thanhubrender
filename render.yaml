@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: thanhub-ticket-bot
+    runtime: node
+    buildCommand: npm install
+    startCommand: node --max-old-space-size=4096 index.js
+    plan: free
+    envVars:
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=4096
+      - key: NODE_ENV
+        value: production
