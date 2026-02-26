@@ -90,6 +90,22 @@ export const registerActions = async () => {
                 }
             }
 
+            //rename channel back to creator format (e.g., ticket-{username})
+            const creatorId = ticket.get("opendiscord:opened-by").value
+            if (creatorId){
+                try {
+                    const creatorMember = await guild.members.fetch(creatorId).catch(() => null)
+                    const creatorName = creatorMember ? creatorMember.user.username : creatorId
+                    await channel.setName("ticket-" + creatorName)
+                } catch(e) {
+                    opendiscord.log("Unable to rename ticket channel on reopen!","error",[
+                        {key:"channel",value:"#"+channel.name},
+                        {key:"channelid",value:channel.id,hidden:true}
+                    ])
+                    opendiscord.debugfile.writeErrorMessage(new api.ODError(e,"uncaughtException"))
+                }
+            }
+
             //update permissions
             const permissions: discord.OverwriteResolvable[] = [{
                 type:discord.OverwriteType.Role,
